@@ -1,0 +1,22 @@
+***things to note***
+when we change folder name of app we should define path of php files to connect to db
+we should change page_id to web_id or projectid
+
+
+
+***Things to do***
+change  page id to project id 
+download all js script instead of link 
+make back main app page for creating new websites
+
+
+
+
+
+***Problems to note***
+preview button is conflicting with side bar
+when first time load project, auto save not work
+if no page id than its gonna return null which should not
+if there is no pages than there should be msg
+if there is a completely new project another msg
+and if we delte all pages than also a msg should show

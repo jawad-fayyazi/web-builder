@@ -1,0 +1,124 @@
+body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f7fc;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+
+    h1 {
+        font-size: 2.5em;
+        color: #4CAF50;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .container {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .project-list ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .project-item {
+        background: #fff;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .project-item a {
+        text-decoration: none;
+        color: #4CAF50;
+        font-weight: bold;
+        border: 1px solid #4CAF50;
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .project-item a:hover {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+/* Delete Button Styling */
+.delete-btn {
+    background-color: #fff; /* White background to match Open Project button */
+    color: #4CAF50; /* Green text color to match Open Project button */
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 10px 15px; /* Padding same as Open Project button */
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none;
+    font-size: 1em; /* Same font size as Open Project button */
+    display: inline-block; /* Make sure it's inline like the link */
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for 3D effect */
+}
+
+/* Hover effect for Delete Button */
+.delete-btn:hover {
+    background-color: #f1f1f1; /* Slight grayish background when hovering */
+    border-color: #4CAF50; /* Border color becomes green on hover */
+}
+
+
+    .create-project {
+        background: #fff;
+        padding: 20px;
+        margin-top: 40px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .create-project h2 {
+        color: #4CAF50;
+        margin-bottom: 20px;
+    }
+
+    .create-project label {
+        font-size: 1.1em;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .create-project input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        font-size: 1em;
+    }
+
+    .create-project button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 1.1em;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .create-project button:hover {
+        background-color: #45a049;
+    }
+
+    .project-item strong {
+        font-size: 1.2em;
+        color: #333;
+    }
+
+    .project-list {
+        margin-top: 40px;
+    }
