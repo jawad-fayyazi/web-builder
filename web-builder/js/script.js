@@ -607,7 +607,78 @@ const panelButtonResize = document.querySelector(".gjs-pn-devices-c");
 
 
 
-// final v of surge
+// final working v of surge
+
+
+
+
+// editor.Commands.add("liveContent", {
+//   run(editor) {
+//     const pages = editor.Pages.getAll(); // Get all pages
+//     const pageData = []; // Initialize an array to store page data
+
+//     const fetchPageContent = (page) => {
+//       return new Promise((resolve) => {
+//         editor.Pages.select(page); // Switch to the page
+
+//         setTimeout(() => {
+//           const html = editor.getHtml(); // Get the HTML
+//           const css = editor.getCss(); // Get the CSS
+//           resolve({
+//             name: page.getName() || `Page-${page.id}`, // Use the page title or ID for file names
+//             html,
+//             css,
+//           });
+//         }, 200); // Add a delay to ensure proper page rendering
+//       });
+//     };
+
+//     const processPages = async () => {
+//       for (const page of pages) {
+//         const content = await fetchPageContent(page);
+//         pageData.push(content); // Add page data to the array
+//       }
+
+//       // Now send the page data to the server using AJAX
+//       uploadToServer(pageData);
+//     };
+
+//     const uploadToServer = (pageData) => {
+//       const data = new FormData();
+//       data.append("pageData", JSON.stringify(pageData)); // Convert pageData to JSON string
+
+//       // Send data to PHP server (live-content.php)
+//       fetch("php/deploy_to_surge.php", {
+//         method: "POST",
+//         body: data,
+//       })
+//         .then((response) => response.json())
+//         .then((data) => {
+//           if (data.status === "success") {
+//             console.log("Files created successfully:", data.message);
+//             alert("Success! Your website has been deployed: " + data.message);
+//           } else {
+//             console.error("Error:", data.message);
+//             alert("Error: " + data.message);
+//           }
+//         })
+//         .catch((error) => {
+//           console.error("Request failed:", error);
+//           alert(
+//             "Request failed. Please check your server or network connection."
+//           );
+//         });
+//     };
+
+//     processPages(); // Start processing the pages
+//   },
+// });
+
+
+
+
+
+
 
 
 
@@ -615,7 +686,7 @@ const panelButtonResize = document.querySelector(".gjs-pn-devices-c");
 editor.Commands.add("liveContent", {
   run(editor) {
     const pages = editor.Pages.getAll(); // Get all pages
-    const pageData = []; // Initialize an array to store page data
+    const zip = new JSZip(); // Initialize the ZIP file
 
     const fetchPageContent = (page) => {
       return new Promise((resolve) => {
@@ -629,44 +700,68 @@ editor.Commands.add("liveContent", {
             html,
             css,
           });
-        }, 200); // Add a delay to ensure proper page rendering
+        }, 500); // Adjusted timeout for more stable rendering
       });
     };
 
     const processPages = async () => {
       for (const page of pages) {
         const content = await fetchPageContent(page);
-        pageData.push(content); // Add page data to the array
+
+        // Add HTML content
+        zip.file(
+          `${content.name}.html`,
+          `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${content.name}</title>
+    <link rel="stylesheet" href="${content.name}.css">
+</head>
+<body>
+    ${content.html}
+</body>
+</html>`
+        );
+
+        // Add CSS content
+        zip.file(`${content.name}.css`, content.css);
       }
 
-      // Now send the page data to the server using AJAX
-      uploadToServer(pageData);
+      // Generate the ZIP file and send to PHP
+      zip.generateAsync({ type: "blob" }).then((content) => {
+        uploadToServer(content);
+      });
     };
 
-    const uploadToServer = (pageData) => {
-      const data = new FormData();
-      data.append("pageData", JSON.stringify(pageData)); // Convert pageData to JSON string
+    const uploadToServer = (zipBlob) => {
+      const formData = new FormData();
+      formData.append("file", zipBlob, "website.zip"); // Append the zip file to the form data
 
-      // Send data to PHP server (live-content.php)
-      fetch("php/deploy_to_surge.php", {
+      // Send the file to the PHP server
+      fetch("php/netlify_deploy.php", {
         method: "POST",
-        body: data,
+        body: formData,
       })
         .then((response) => response.json())
         .then((data) => {
+          // Log the response for debugging
+          console.log(data);
+
+          // Check for success
           if (data.status === "success") {
-            console.log("Files created successfully:", data.message);
-            alert("Success! Your website has been deployed: " + data.message);
+            // Only show one alert if deployment was successful
+            alert(`Website deployed successfully! Live at: ${data.url}`);
           } else {
-            console.error("Error:", data.message);
-            alert("Error: " + data.message);
+            // Show alert if there was an error
+            alert(`Deployment failed: ${data.message}`);
           }
         })
         .catch((error) => {
+          // Log the error for debugging
           console.error("Request failed:", error);
-          alert(
-            "Request failed. Please check your server or network connection."
-          );
+          alert("An error occurred while deploying the website.");
         });
     };
 
