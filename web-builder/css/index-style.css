@@ -1,124 +1,285 @@
+/* body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7fc;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #4CAF50;
+    text-align: center;
+    padding: 20px;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.project-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.project-item {
+    background: #fff;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-item a {
+    text-decoration: none;
+    color: #4CAF50;
+    font-weight: bold;
+    border: 1px solid #4CAF50;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.project-item a:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #fff;
+    color: #4CAF50;
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1em;
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.delete-btn:hover {
+    background-color: #f1f1f1;
+    border-color: #4CAF50;
+}
+
+
+.create-project {
+    background: #fff;
+    padding: 20px;
+    margin-top: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.create-project h2 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.create-project label {
+    font-size: 1.1em;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.create-project input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+}
+
+.create-project button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.create-project button:hover {
+    background-color: #45a049;
+}
+
+.project-item strong {
+    font-size: 1.2em;
+    color: #333;
+}
+
+.project-list {
+    margin-top: 40px;
+} */
+
+
+
+
+/* dark mode */
+
+
+
+
+
+/* Background Colors */
 body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f4f7fc;
-        margin: 0;
-        padding: 0;
-        color: #333;
-    }
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #181818;
+    /* Dark background for the body */
+    margin: 0;
+    padding: 0;
+    color: #e4e6eb;
+    /* Light text for contrast */
+}
 
-    h1 {
-        font-size: 2.5em;
-        color: #4CAF50;
-        text-align: center;
-        padding: 20px;
-    }
+h1 {
+    font-size: 2.5em;
+    color: #4CAF50;
+    /* Green header to maintain the theme */
+    text-align: center;
+    padding: 20px;
+}
 
-    .container {
-        width: 80%;
-        margin: 0 auto;
-    }
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
 
-    .project-list ul {
-        list-style-type: none;
-        padding: 0;
-    }
+/* Project List */
+.project-list ul {
+    list-style-type: none;
+    padding: 0;
+}
 
-    .project-item {
-        background: #fff;
-        padding: 15px;
-        margin: 10px 0;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+.project-item {
+    background: #2c2f33;
+    /* Darker background for each project item */
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* Darker shadow for a night mode feel */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    .project-item a {
-        text-decoration: none;
-        color: #4CAF50;
-        font-weight: bold;
-        border: 1px solid #4CAF50;
-        padding: 8px 15px;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-    }
+.project-item a {
+    text-decoration: none;
+    color: #4CAF50;
+    /* Green links */
+    font-weight: bold;
+    border: 1px solid #4CAF50;
+    /* Green border */
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
 
-    .project-item a:hover {
-        background-color: #4CAF50;
-        color: white;
-    }
+.project-item a:hover {
+    background-color: #4CAF50;
+    color: white;
+}
 
 /* Delete Button Styling */
 .delete-btn {
-    background-color: #fff; /* White background to match Open Project button */
-    color: #4CAF50; /* Green text color to match Open Project button */
-    border: 1px solid #ddd; /* Light gray border */
-    padding: 10px 15px; /* Padding same as Open Project button */
-    border-radius: 5px; /* Rounded corners */
+    background-color: #2c2f33;
+    /* Dark background for consistency */
+    color: #4CAF50;
+    /* Green text */
+    border: 1px solid #444;
+    /* Dark border */
+    padding: 10px 15px;
+    border-radius: 5px;
     text-decoration: none;
-    font-size: 1em; /* Same font size as Open Project button */
-    display: inline-block; /* Make sure it's inline like the link */
+    font-size: 1em;
+    display: inline-block;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for 3D effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    /* Darker shadow */
 }
 
 /* Hover effect for Delete Button */
 .delete-btn:hover {
-    background-color: #f1f1f1; /* Slight grayish background when hovering */
-    border-color: #4CAF50; /* Border color becomes green on hover */
+    background-color: #444;
+    /* Slight grayish background when hovering */
+    border-color: #4CAF50;
+    /* Green border on hover */
 }
 
+/* Create Project Section */
+.create-project {
+    background: #2c2f33;
+    /* Dark background for form */
+    padding: 20px;
+    margin-top: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 
-    .create-project {
-        background: #fff;
-        padding: 20px;
-        margin-top: 40px;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
+.create-project h2 {
+    color: #4CAF50;
+    /* Green header */
+    margin-bottom: 20px;
+}
 
-    .create-project h2 {
-        color: #4CAF50;
-        margin-bottom: 20px;
-    }
+.create-project label {
+    font-size: 1.1em;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+    color: #e4e6eb;
+    /* Light text for labels */
+}
 
-    .create-project label {
-        font-size: 1.1em;
-        font-weight: bold;
-        display: block;
-        margin-bottom: 10px;
-    }
+.create-project input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    /* Dark border */
+    font-size: 1em;
+    background-color: #333;
+    /* Dark input field background */
+    color: #e4e6eb;
+    /* Light text inside input */
+}
 
-    .create-project input {
-        width: 100%;
-        padding: 12px;
-        margin-bottom: 20px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        font-size: 1em;
-    }
+.create-project button {
+    background-color: #4CAF50;
+    /* Green button */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
-    .create-project button {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 12px 20px;
-        font-size: 1.1em;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
+.create-project button:hover {
+    background-color: #45a049;
+    /* Slightly darker green on hover */
+}
 
-    .create-project button:hover {
-        background-color: #45a049;
-    }
+/* Project Item Text */
+.project-item strong {
+    font-size: 1.2em;
+    color: #e4e6eb;
+    /* Light text for project titles */
+}
 
-    .project-item strong {
-        font-size: 1.2em;
-        color: #333;
-    }
-
-    .project-list {
-        margin-top: 40px;
-    }
+/* Project List */
+.project-list {
+    margin-top: 40px;
+}

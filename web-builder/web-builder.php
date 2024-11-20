@@ -1,6 +1,6 @@
 <?php
 // Get the 'id' parameter from the URL (if it's set)
-$page_id = isset($_GET['pageId']) ? $_GET['pageId'] : null;
+$project_id = isset($_GET['project_id']) ? $_GET['project_id'] : null;
 ?>
 
 
@@ -34,6 +34,9 @@ $page_id = isset($_GET['pageId']) ? $_GET['pageId'] : null;
     <script src="https://unpkg.com/grapesjs-typed@1.0.5"></script>
     <script src="https://unpkg.com/grapesjs-style-bg@2.0.1"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
 
 
 
@@ -83,8 +86,8 @@ $page_id = isset($_GET['pageId']) ? $_GET['pageId'] : null;
 
 
 <script>
-    var pageId = <?php echo json_encode($page_id); ?>;
-    console.log("page id is ", pageId);
+    var projectId = <?php echo json_encode($project_id); ?>;
+    console.log("page id is ", projectId);
 </script>
     <script src="js/script.js"></script>
 </body>

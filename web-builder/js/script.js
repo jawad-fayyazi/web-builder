@@ -13,8 +13,8 @@ const editor = grapesjs.init({
     options: {
       remote: {
         headers: {}, // Custom headers for the remote storage request
-        urlStore: `http://localhost/web-builder/php/save_page.php?page_id=${pageId}`, // Endpoint URL where to store data project
-        urlLoad: `http://localhost/web-builder/php/load_page.php?page_id=${pageId}`, // Endpoint URL where to load data project
+        urlStore: `http://localhost/web-builder/php/save_page.php?project_id=${projectId}`, // Endpoint URL where to store data project
+        urlLoad: `http://localhost/web-builder/php/load_page.php?project_id=${projectId}`, // Endpoint URL where to load data project
       },
     },
   },
@@ -276,15 +276,15 @@ function renderPages() {
       const deletePageBtn = li.querySelector(".delete-page");
       deletePageBtn.addEventListener("click", (e) => {
         e.stopPropagation(); // Prevent li click from triggering page selection
-        const pageId = e.target.dataset.id;
-        const page = pagesApi.getAll().find((p) => p.id === pageId); // Find the page by ID
+        const projectId = e.target.dataset.id;
+        const page = pagesApi.getAll().find((p) => p.id === projectId); // Find the page by ID
         const pageName = page ? page.getName() : "Unknown Page"; // Get the page name, fallback if not found
 
         // Ask for confirmation
         if (
           confirm(`Are you sure you want to delete the page: "${pageName}"?`)
         ) {
-          pagesApi.remove(pageId); // Delete the selected page
+          pagesApi.remove(projectId); // Delete the selected page
           renderPages(); // Re-render the list after deletion
         }
         subMenu.style.display = "none"; // Close sub-menu after action
@@ -381,64 +381,295 @@ const panelButtonResize = document.querySelector(".gjs-pn-devices-c");
 
 
 
+// editor.Commands.add("liveContent", {
+//   run: function () {
+//     liveContent();
+//   },
+// });
+
+// // Event listener for live button click
+// function liveContent() {
+//   // Get HTML and CSS from GrapesJS editor
+//   const htmlContent = editor.getHtml();
+//   const cssContent = editor.getCss();
+
+//   // Combine HTML and CSS into one file
+//   const fullHtml = `<!DOCTYPE html>
+// <html lang="en">
+// <head>
+//     <meta charset="UTF-8">
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//     <title>Exported Page</title>
+//     <link href="styles.css" rel="stylesheet" />
+// </head>
+// <body>
+// ${htmlContent}
+// </body>
+// </html>`;
+
+//   // Create a zip file with JSZip
+//   const zip = new JSZip();
+//   zip.file("index.html", fullHtml); // Add the HTML file
+//   zip.file("styles.css", cssContent); // Add the CSS file
+
+//   // Generate the ZIP file as a Blob (Binary Large Object)
+//   zip
+//     .generateAsync({ type: "blob" })
+//     .then(function (blob) {
+//       // Once the ZIP file is ready, send it to your PHP server
+//       uploadToPHPServer(blob);
+//     })
+//     .catch(function (error) {
+//       console.error("Error generating the ZIP file:", error);
+//     });
+// }
+
+// // Function to send the ZIP file to PHP server
+// function uploadToPHPServer(blob) {
+//   const formData = new FormData();
+//   formData.append("file", blob, "site.zip");
+
+//   // Send the file to your PHP server (upload.php)
+//   fetch("live-content.php", {
+//     method: "POST",
+//     body: formData,
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       console.log("Upload success:", data);
+//     })
+//     .catch((error) => {
+//       console.error("Upload failed:", error);
+//     });
+// }
+
+
+
+
+
+// editor.Commands.add("liveContent", {
+//   run(editor) {
+//     const pages = editor.Pages.getAll(); // Get all pages
+//     const zip = new JSZip(); // Initialize the ZIP file
+
+//     const fetchPageContent = (page) => {
+//       return new Promise((resolve) => {
+//         editor.Pages.select(page); // Switch to the page
+
+//         setTimeout(() => {
+//           const html = editor.getHtml(); // Get the HTML
+//           const css = editor.getCss(); // Get the CSS
+//           resolve({
+//             name: page.getName() || `Page-${page.id}`, // Use the page title or ID for file names
+//             html,
+//             css,
+//           });
+//         }, 200); // Add a delay to ensure proper page rendering
+//       });
+//     };
+
+//     const processPages = async () => {
+//       for (const page of pages) {
+//         const content = await fetchPageContent(page);
+
+//         // Add an HTML file for the page
+//         zip.file(
+//           `${page.getName()}.html`,
+//           `
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//     <meta charset="UTF-8">
+//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//     <title>${page.getName()}</title>
+//     <link rel="stylesheet" href="${page.getName()}.css">
+// </head>
+// <body>
+//     ${content.html}
+// </body>
+// </html>`
+//         );
+
+//         // Add a CSS file for the page
+//         zip.file(`${page.getName()}.css`, content.css);
+//       }
+
+//       // Generate the ZIP and trigger the download
+//       zip.generateAsync({ type: "blob" }).then((content) => {
+//         saveAs(content, "website.zip"); // Use FileSaver.js to trigger download
+//       });
+//     };
+
+//     processPages(); // Start processing the pages
+//   },
+// });
+
+
+
+
+
+
+// var htmlContent = editor.getHtml();
+// var cssContent = editor.getCss();
+
+
+// function deployWebsite() {
+//   // Make the AJAX request to PHP
+//   fetch("php/deploy_to_surge.php", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       html: "<h1 style='color: aqua;'>Hello World</h1>",
+//       css: cssContent,
+//     }),
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       alert(data.message); // Show success or error message
+//     })
+//     .catch((error) => {
+//       console.error("Error:", error);
+//       alert("Deployment failed");
+//     });
+// }
+
+
+
+
+
+
+
+
+
+
+
+// semi final v
+
+
+// editor.Commands.add("liveContent", {
+//   run(editor) {
+//     const pages = editor.Pages.getAll(); // Get all pages
+//     const pageData = []; // Initialize an array to store page data
+
+//     const fetchPageContent = (page) => {
+//       return new Promise((resolve) => {
+//         editor.Pages.select(page); // Switch to the page
+
+//         setTimeout(() => {
+//           const html = editor.getHtml(); // Get the HTML
+//           const css = editor.getCss(); // Get the CSS
+//           resolve({
+//             name: page.getName() || `Page-${page.id}`, // Use the page title or ID for file names
+//             html,
+//             css,
+//           });
+//         }, 200); // Add a delay to ensure proper page rendering
+//       });
+//     };
+
+//     const processPages = async () => {
+//       for (const page of pages) {
+//         const content = await fetchPageContent(page);
+//         pageData.push(content); // Add page data to the array
+//       }
+
+//       // Now send the page data to the server using AJAX
+//       uploadToServer(pageData);
+//     };
+
+//     const uploadToServer = (pageData) => {
+//       const data = new FormData();
+//       data.append("pageData", JSON.stringify(pageData)); // Convert pageData to JSON string
+
+//       // Send data to PHP server (live-content.php)
+//       fetch("php/deploy_to_surge.php", {
+//         method: "POST",
+//         body: data,
+//       })
+//         .then((response) => response.json())
+//         .then((data) => {
+//           if (data.status === "success") {
+//             console.log("Files created successfully:", data.message);
+//           } else {
+//             console.error("Error:", data.message);
+//           }
+//         })
+//         .catch((error) => {
+//           console.error("Request failed:", error);
+//         });
+//     };
+
+//     processPages(); // Start processing the pages
+//   },
+// });
+
+
+
+// final v of surge
+
+
+
+
 editor.Commands.add("liveContent", {
-  run: function () {
-    liveContent();
+  run(editor) {
+    const pages = editor.Pages.getAll(); // Get all pages
+    const pageData = []; // Initialize an array to store page data
+
+    const fetchPageContent = (page) => {
+      return new Promise((resolve) => {
+        editor.Pages.select(page); // Switch to the page
+
+        setTimeout(() => {
+          const html = editor.getHtml(); // Get the HTML
+          const css = editor.getCss(); // Get the CSS
+          resolve({
+            name: page.getName() || `Page-${page.id}`, // Use the page title or ID for file names
+            html,
+            css,
+          });
+        }, 200); // Add a delay to ensure proper page rendering
+      });
+    };
+
+    const processPages = async () => {
+      for (const page of pages) {
+        const content = await fetchPageContent(page);
+        pageData.push(content); // Add page data to the array
+      }
+
+      // Now send the page data to the server using AJAX
+      uploadToServer(pageData);
+    };
+
+    const uploadToServer = (pageData) => {
+      const data = new FormData();
+      data.append("pageData", JSON.stringify(pageData)); // Convert pageData to JSON string
+
+      // Send data to PHP server (live-content.php)
+      fetch("php/deploy_to_surge.php", {
+        method: "POST",
+        body: data,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "success") {
+            console.log("Files created successfully:", data.message);
+            alert("Success! Your website has been deployed: " + data.message);
+          } else {
+            console.error("Error:", data.message);
+            alert("Error: " + data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Request failed:", error);
+          alert(
+            "Request failed. Please check your server or network connection."
+          );
+        });
+    };
+
+    processPages(); // Start processing the pages
   },
 });
-
-// Event listener for live button click
-function liveContent() {
-  // Get HTML and CSS from GrapesJS editor
-  const htmlContent = editor.getHtml();
-  const cssContent = editor.getCss();
-
-  // Combine HTML and CSS into one file
-  const fullHtml = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exported Page</title>
-    <link href="styles.css" rel="stylesheet" />
-</head>
-<body>
-${htmlContent}
-</body>
-</html>`;
-
-  // Create a zip file with JSZip
-  const zip = new JSZip();
-  zip.file("index.html", fullHtml); // Add the HTML file
-  zip.file("styles.css", cssContent); // Add the CSS file
-
-  // Generate the ZIP file as a Blob (Binary Large Object)
-  zip
-    .generateAsync({ type: "blob" })
-    .then(function (blob) {
-      // Once the ZIP file is ready, send it to your PHP server
-      uploadToPHPServer(blob);
-    })
-    .catch(function (error) {
-      console.error("Error generating the ZIP file:", error);
-    });
-}
-
-// Function to send the ZIP file to PHP server
-function uploadToPHPServer(blob) {
-  const formData = new FormData();
-  formData.append("file", blob, "site.zip");
-
-  // Send the file to your PHP server (upload.php)
-  fetch("live-content.php", {
-    method: "POST",
-    body: formData,
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("Upload success:", data);
-    })
-    .catch((error) => {
-      console.error("Upload failed:", error);
-    });
-}

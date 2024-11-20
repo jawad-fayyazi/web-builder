@@ -16,31 +16,31 @@ if ($conn->connect_error) {
 // Check if the POST request has JSON data
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get the raw POST data
-    $canvas_data = file_get_contents('php://input');
+    $projects_data = file_get_contents('php://input');
 
 
-    // Extract page_id from the URL data
-    $page_id = isset($_GET['page_id']) ? $_GET['page_id'] : null;
-    $canvas_json = $canvas_data;  // Keep the canvas data in JSON format
+    // Extract project_id from the URL data
+    $project_id = isset($_GET['project_id']) ? $_GET['project_id'] : null;
+    $project_json = $projects_data;  // Keep the canvas data in JSON format
 
-    if ($page_id) {
-        // Check if this page_id already exists in the database
-        $check_stmt = $conn->prepare("SELECT page_id FROM canvas_data WHERE page_id = ?");
-        $check_stmt->bind_param('i', $page_id);
+    if ($project_id) {
+        // Check if this project_id already exists in the database
+        $check_stmt = $conn->prepare("SELECT project_id FROM projects_data WHERE project_id = ?");
+        $check_stmt->bind_param('i', $project_id);
         $check_stmt->execute();
         $result = $check_stmt->get_result();
 
         if ($result->num_rows > 0) {
-            // If page_id exists, update the existing record
-            $stmt = $conn->prepare("UPDATE canvas_data SET canvas_json = ? WHERE page_id = ?");
-            $stmt->bind_param('si', $canvas_json, $page_id);
+            // If project_id exists, update the existing record
+            $stmt = $conn->prepare("UPDATE projects_data SET project_json = ? WHERE project_id = ?");
+            $stmt->bind_param('si', $project_json, $project_id);
             $stmt->execute();
             $stmt->close();
             echo json_encode(['status' => 'success', 'message' => 'Canvas data updated successfully']);
         } else {
-            // If page_id does not exist, insert a new record
-            $stmt = $conn->prepare("INSERT INTO canvas_data (page_id, canvas_json) VALUES (?, ?)");
-            $stmt->bind_param('is', $page_id, $canvas_json);
+            // If project_id does not exist, insert a new record
+            $stmt = $conn->prepare("INSERT INTO projects_data (project_id, project_json) VALUES (?, ?)");
+            $stmt->bind_param('is', $project_id, $project_json);
             $stmt->execute();
             $stmt->close();
             echo json_encode(['status' => 'success', 'message' => 'Canvas data saved successfully']);
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $check_stmt->close();
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'No page_id provided']);
+        echo json_encode(['status' => 'error', 'message' => 'No project_id provided']);
     }
 
 

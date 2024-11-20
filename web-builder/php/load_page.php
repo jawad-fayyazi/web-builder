@@ -13,31 +13,31 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Check if page_id is provided in the request
-$page_id = isset($_GET['page_id']) ? $_GET['page_id'] : null;
+// Check if project_id is provided in the request
+$project_id = isset($_GET['project_id']) ? $_GET['project_id'] : null;
 
-if ($page_id) {
-    // Prepare the SQL query to fetch data for the specific page_id
-    $stmt = $conn->prepare("SELECT canvas_json FROM canvas_data WHERE page_id = ? LIMIT 1");
-    $stmt->bind_param("i", $page_id);
+if ($project_id) {
+    // Prepare the SQL query to fetch data for the specific project_id
+    $stmt = $conn->prepare("SELECT project_json FROM projects_data WHERE project_id = ? LIMIT 1");
+    $stmt->bind_param("i", $project_id);
 
     // Execute the query
     $stmt->execute();
     $result = $stmt->get_result();
 
-    // Check if any data exists for the given page_id
+    // Check if any data exists for the given project_id
     if ($result->num_rows > 0) {
         // Fetch the data and return as JSON
         $row = $result->fetch_assoc();
-        echo $row['canvas_json'];
+        echo $row['project_json'];
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'No canvas data found for the specified page_id']);
+        echo json_encode(['status' => 'error', 'message' => 'No canvas data found for the specified project_id']);
     }
 
     // Close the statement
     $stmt->close();
 } else {
-    echo json_encode(['status' => 'error', 'message' => 'No page_id provided']);
+    echo json_encode(['status' => 'error', 'message' => 'No project_id provided']);
 }
 
 // Close the connection
