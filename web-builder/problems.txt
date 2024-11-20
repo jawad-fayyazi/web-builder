@@ -39,3 +39,7 @@ and if we delte all pages than also a msg should show
 ***HOSTING***
 surge is working 
 should have a index.html file
+
+okay netlify is working too
+creating websites using its api and deploying using cli
+we have to check if domain exists than only deploy as it will update the website make success and error messages and integreate those msg in gjs ui so it will be user freindly
